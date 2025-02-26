@@ -1,0 +1,26 @@
+--UNIONS
+
+SELECT CAST(age AS VARCHAR), gender
+FROM employee_demographics
+UNION ALL
+SELECT last_name, first_name
+FROM employee_salary;
+
+
+select first_name, last_name , 'old' as label
+from employee_demographics
+where age > 50;
+
+
+SELECT ed.first_name, ed.last_name, 'aged man' AS label
+FROM employee_demographics ed
+JOIN employee_salary es ON ed.employee_id = es.employee_id
+WHERE ed.age > 40 AND ed.gender = 'male'
+UNION
+SELECT es.first_name, es.last_name, 'highly paid employee' AS label
+FROM employee_salary es
+WHERE es.salary > 50000
+UNION
+SELECT ed.first_name, ed.last_name, 'aged lady' AS label
+FROM employee_demographics ed
+WHERE ed.age > 40 AND ed.gender = 'female'
