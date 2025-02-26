@@ -1,0 +1,37 @@
+
+--Group BY Clause
+
+select gender, AVG(age)
+from employee_demographics
+group by gender
+
+
+SELECT occupation , salary
+FROM employee_salary
+GROUP BY occupation , salary;
+
+select gender, AVG(age) , max(age)
+from employee_demographics
+group by gender
+
+select gender, AVG(age), max(age), min(age), count(age)
+from employee_demographics
+group by gender
+
+-- order by
+
+select *
+from employee_demographics
+order by first_name desc
+
+select *
+from employee_demographics
+order by gender
+
+select *
+from employee_demographics
+order by gender , age
+
+select *
+from employee_demographics
+order by gender , age desc
