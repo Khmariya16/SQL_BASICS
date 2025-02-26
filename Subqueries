@@ -1,0 +1,58 @@
+
+--CASE STATEMENTS
+
+SELECT first_name, 
+       age,
+       CASE
+           WHEN age <= 30 THEN 'Young'
+           WHEN age BETWEEN 31 AND 50 THEN 'Old'
+           WHEN age >= 51 THEN 'On death''s door'
+       END AS age_brackets
+FROM employee_demographics;
+
+
+--pay inc and bonus
+-- < 50000 5% inc
+-- > 50000 7% inc
+
+select first_name , 
+		last_name ,
+		salary,
+	CASE
+		WHEN salary <= 50000 then salary * 1.05
+		WHEN salary > 50000 then salary * 1.07
+	END as new_salary,
+	CASE
+		WHEN dept_id = 6 then salary * .10
+	END as Bonus
+from employee_salary
+
+--SUBQUERIES
+
+select *
+from employee_demographics
+where employee_id IN 
+					(
+					select employee_id
+					from employee_salary
+					where dept_id = 1
+					)
+order by employee_id
+
+select * 
+from
+(select gender , avg(age) , min(age) , max(age) , count(age)
+from employee_demographics
+group by gender) as agg_table
+
+
+SELECT AVG(max_age)
+FROM (
+    SELECT gender, 
+           AVG(age) AS avg_age, 
+           MIN(age) AS min_age, 
+           MAX(age) AS max_age, 
+           COUNT(age) AS count_age
+    FROM employee_demographics
+    GROUP BY gender
+) AS agg_table;
